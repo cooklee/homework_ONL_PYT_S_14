@@ -1,0 +1,11 @@
+{% extends 'base/base.html' %}
+{% block zawartosc %}
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="first_name"
+               placeholder="Imie" value="{{ person.first_name }}">
+        <input type="text" name="last_name"
+               placeholder="Nazwisko" value="{{ person.last_name }}">
+        <input type="submit">
+    </form>
+{% endblock %}

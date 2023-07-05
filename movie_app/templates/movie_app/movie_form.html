@@ -1,0 +1,42 @@
+{% extends 'base/base.html' %}
+{% block zawartosc %}
+    <div style="margin: 20px">
+        <form method="post">
+            {% csrf_token %}
+            <p><input type="text" name="title"
+                      placeholder="Tytuł" value="{{ movie.title }}"></p>
+            <p><input type="number" name="year"
+                      placeholder="rok" value="{{ movie.year }}"></p>
+            <p><select name="director">
+                {% for person in persons %}
+                    <option value="{{ person.id }}"
+                            {% if person == movie.director %}
+                                selected
+                            {% endif %}
+                    > {{ person }}</option>
+                {% endfor %}
+            </select></p>
+            <p><select name="screenplay">
+                {% for person in persons %}
+                    <option value="{{ person.id }}"
+                            {% if person == movie.screenplay %}
+                                selected
+                            {% endif %}
+                     > {{ person }}</option>
+                {% endfor %}
+            </select>
+            </p>
+            <p>
+                <input type="number" name="rating" value="{{ movie.rating }}">
+            </p>
+                {% for genre in genres %}
+                 <p> <input type="checkbox" name="genre" value="{{ genre.id }}"
+                    {% if genre in movie.genre.all %}
+                        checked
+                    {% endif %}
+                 > {{ genre.name }}</p>
+                {% endfor %}
+        <input type="submit">
+        </form>
+    </div>
+{% endblock %}

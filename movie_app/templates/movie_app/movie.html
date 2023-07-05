@@ -1,0 +1,31 @@
+{% extends 'base/base.html' %}
+
+{% block zawartosc %}
+    <table>
+        <thead>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Tytuł</td>
+            <td>{{ movie.title }}</td>
+        </tr>
+        <td>rok</td>
+        <td>{{ movie.year }}</td>
+        <tr>
+            <td>reżyser</td>
+            <td>{{ movie.director.last_name }}</td>
+        </tr>
+        <tr>
+            <td>scenariusz</td>
+            <td>{{ movie.screenplay.last_name }}</td>
+        </tr>
+
+        <tr>
+            <td>Gatunki</td>
+            <td>{% for genre in movie.genre.all %}{{ genre.name }}<br>{% endfor %}</td>
+        </tr>
+
+
+        </tbody>
+    </table>
+{% endblock %}
