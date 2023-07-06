@@ -24,6 +24,10 @@
             <td>Gatunki</td>
             <td>{% for genre in movie.genre.all %}{{ genre.name }}<br>{% endfor %}</td>
         </tr>
+        <tr>
+            <td>Wystąpili</td>
+            <td>{% for starring in movie.starring_set.all %} {{ starring.person }} jako {{ starring.role }}<br>{% endfor %}</td>
+        </tr>
 
 
         </tbody>

@@ -1,6 +1,7 @@
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.views import View
 
 from movie_app.models import Movie, Person, Genre, Starring
 
@@ -22,7 +23,7 @@ def movies_view(request):
     if sort is not None:
         request.session['sort'] = sort
 
-    return render(request, 'movie_app/movies.html', {'movies': movies, 'lang':lang, 'sort':sort})
+    return render(request, 'movie_app/movies.html', {'movies': movies, 'lang': lang, 'sort': sort})
 
 
 def movie_search(request):
@@ -33,7 +34,7 @@ def movie_search(request):
     last_name = request.GET.get('last_name', '')
 
     persons = Person.objects.filter(first_name__icontains=first_name,
-                                last_name__icontains=last_name)
+                                    last_name__icontains=last_name)
 
     year_from = request.GET.get('year_from', 0)
     year_to = request.GET.get('year_to', 9999)
@@ -61,9 +62,7 @@ def movie_search(request):
     for genre in genres_lst:
         movies = movies.filter(genre__in=[genre])
 
-
-    return render(request, 'movie_app/movies_search.html', {'genres':genres, 'movies':movies})
-
+    return render(request, 'movie_app/movies_search.html', {'genres': genres, 'movies': movies})
 
 
 def movie_view(request, id):
@@ -72,11 +71,10 @@ def movie_view(request, id):
 
 
 def add_actor_to_movie(request, movie_id):
-
     movie = Movie.objects.get(pk=movie_id)
     persons = Person.objects.all()
     if request.method == 'GET':
-        return render(request, 'movie_app/add_actor_to_movie_form.html', {'movie':movie, 'persons':persons})
+        return render(request, 'movie_app/add_actor_to_movie_form.html', {'movie': movie, 'persons': persons})
     person_id = request.POST.get('person')
     person = Person.objects.get(pk=person_id)
     role = request.POST.get('role')
@@ -88,16 +86,13 @@ def add_actor_to_movie(request, movie_id):
     return redirect('add_actor', movie_id)
 
 
-
-
-
 def persons_view(request):
     persons = Person.objects.all()
     messages = request.session.get('messages', [])
     if 'messages' in request.session:
         del request.session['messages']
     return render(request, 'movie_app/person.html', {'persons': persons,
-                                                     'messages':messages})
+                                                     'messages': messages})
 
 
 def person_create_view(request):
@@ -108,6 +103,15 @@ def person_create_view(request):
     Person.objects.create(first_name=first_name, last_name=last_name)
     request.session['messages'] = ['Udało sie dodać osobe']
     return redirect('person_list')
+class CreatePersonView(View):
+    def get(self, request):
+        return render(request, 'movie_app/create_person_form.html')
+    def post(self, request):
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        Person.objects.create(first_name=first_name, last_name=last_name)
+        request.session['messages'] = ['Udało sie dodać osobe']
+        return redirect('person_list')
 
 
 def person_edit_view(request, id):
@@ -140,6 +144,7 @@ def create_edit_movie(request, movie=None):
     movie.genre.set(genre)
     return movie
 
+
 def movie_edit_view(request, id):
     movie = Movie.objects.get(pk=id)
     if request.method == 'GET':
@@ -159,4 +164,3 @@ def movie_create_view(request):
         })
     create_edit_movie(request)
     return redirect('movie_list')
-

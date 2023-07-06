@@ -25,6 +25,7 @@ urlpatterns = [
     path('movies_edit/<int:id>/', views.movie_edit_view, name='movie_edit'),
     path('persons/', views.persons_view, name='person_list'),
     path('person_add/', views.person_create_view, name='person_create'),
+    path('person_add_class/', views.CreatePersonView.as_view(), name='person_create'),
     path('persons/<int:id>/', views.person_edit_view, name='person_edit'),
     path('movies/<int:id>/', views.movie_view, name='movie_detail'),
     path('movies/<int:movie_id>/addActor/', views.add_actor_to_movie, name='add_actor'),
