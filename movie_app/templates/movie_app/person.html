@@ -5,4 +5,9 @@
             <li><a href="{% url 'person_edit' person.id %}"> {{ person.first_name }} {{ person.last_name }}</a></li>
         {% endfor %}
     </ul>
+    <ul>
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
 {% endblock %}

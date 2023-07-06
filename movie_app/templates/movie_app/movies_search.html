@@ -1,0 +1,37 @@
+{% extends 'base/base.html' %}
+{% block  zawartosc %}
+    <form>
+        <p><input type="text" name="title" placeholder="title">
+        <input type="text" name="first_name" placeholder="imie">
+        <input type="text" name="last_name" placeholder="nazwisko">
+        <input type="number" name="year_from" placeholder="od">
+        <input type="number" name="year_to" placeholder="do">
+        <input type="number" name="rating_from" placeholder="ocena od">
+        <input type="number" name="rating_to" placeholder="ocena do"></p>
+        {% for genre in genres %}
+            <p><input type="checkbox" name="genre" value="{{ genre.id }}"> {{ genre.name }}    </p>
+        {% endfor %}
+        <input type="submit">
+
+    </form>
+     <table>
+        <thead>
+        <tr>
+            <th>Tytuł</th>
+            <th>Rok</th>
+            <th>ocena</th>
+            <th>reżyser</th>
+            <th>Edycja</th>
+        </tr>
+        </thead>
+        {% for movie in movies %}
+            <tr>
+                <td><a href="{% url 'movie_detail' movie.id %}">{{ movie.title }} </a></td>
+                <td>{{ movie.year }}</td>
+                <td>{{ movie.rating }}</td>
+                <td>{{ movie.director.last_name }}</td>
+                <td><a href="{% url 'movie_edit' movie.id %}">edycja</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

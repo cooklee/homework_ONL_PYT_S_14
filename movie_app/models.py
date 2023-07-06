@@ -21,3 +21,10 @@ class Movie(models.Model):
     year = models.IntegerField()
     rating = models.IntegerField()
     genre = models.ManyToManyField(Genre)
+    actors = models.ManyToManyField(Person, through='Starring', related_name='movies')
+
+
+class Starring(models.Model):
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    role = models.CharField(max_length=222)

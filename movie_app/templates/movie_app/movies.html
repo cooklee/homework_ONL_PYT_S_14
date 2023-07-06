@@ -1,18 +1,27 @@
 {% extends 'base/base.html' %}
 {% block zawartosc %}
+    <form>
+        <input type="submit" name="sort" value="rosnaco">
+        <input type="submit" name="sort" value="malejaco">
+        <input type="submit" name="sort" value="domyslnie">
+    </form>
     <table>
         <thead>
         <tr>
-            <th>Tytuł</th><th>Rok</th><th>ocena</th><th>reżyser</th><th>Edycja</th>
+            <th>Tytuł</th>
+            <th>Rok</th>
+            <th>ocena</th>
+            <th>reżyser</th>
+            <th>Edycja</th>
         </tr>
         </thead>
         {% for movie in movies %}
             <tr>
-            <td><a href="{% url 'movie_detail' movie.id %}">{{ movie.title }} </a></td>
-            <td>{{ movie.year }}</td>
-            <td>{{ movie.rating }}</td>
-            <td>{{ movie.director.last_name }}</td>
-            <td><a href="{% url 'movie_edit' movie.id %}">edycja</a></td>
+                <td><a href="{% url 'movie_detail' movie.id %}">{{ movie.title }} </a></td>
+                <td>{{ movie.year }}</td>
+                <td>{{ movie.rating }}</td>
+                <td>{{ movie.director.last_name }}</td>
+                <td><a href="{% url 'movie_edit' movie.id %}">edycja</a></td>
             </tr>
         {% endfor %}
     </table>

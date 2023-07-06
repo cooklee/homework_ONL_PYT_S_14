@@ -6,12 +6,24 @@
 </head>
 {% include 'base/style.html' %}
 <body>
+<p>Twoj jezyk to {{ lang }}</p>
 <ul class="nav">
     <li class="nav"><a href="{% url 'movie_list' %}">Filmy </a></li>
     <li class="nav"><a href="{% url 'movie_create' %}">Dodaj Film </a></li>
     <li class="nav"><a href="{% url 'person_list' %}">Człowieki </a></li>
     <li class="nav"><a href="{% url 'person_create' %}">dodaj Człowieki </a></li>
 </ul>
+<form action="{% url 'set_lang' %} " method="post">
+    {% csrf_token %}
+    <select name="lang">
+        <option>pl</option>
+        <option>en</option>
+        <option>ab</option>
+        <option>ug</option>
+        <option>fe</option>
+    </select>
+    <input type="submit">
+</form>
 {% block zawartosc %}
 {% endblock %}
 </body>

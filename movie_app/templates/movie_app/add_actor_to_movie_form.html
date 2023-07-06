@@ -1,0 +1,20 @@
+{% extends 'base/base.html' %}
+{% block zawartosc %}
+    <div style="margin: 10px">
+    dodajesz do filmu {{ movie.title }}
+    <form method="post">
+        {% csrf_token %}
+        <p><select name="person">
+            {% for person in persons %}
+                <option value="{{ person.id }}">{{ person }}</option>
+            {% endfor %}
+
+        </select></p>
+        <p>
+            <input type="text" name="role" PLACEHOLDER="Rola">
+
+        </p>
+        <input type="submit">
+    </form>
+    </div>
+{% endblock %}

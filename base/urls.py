@@ -20,4 +20,5 @@ from base import views
 
 urlpatterns = [
     path("", views.index, name='index'),
+    path("set_lang/", views.set_language_view, name='set_lang')
 ]
