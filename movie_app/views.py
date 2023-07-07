@@ -9,7 +9,6 @@ from movie_app.models import Movie, Person, Genre, Starring
 # Create your views here.
 def movies_view(request):
     movies = Movie.objects.order_by('-year')
-    lang = request.COOKIES.get('lang', 'Not set')
     session_sort = request.session.get('sort')
     sort = request.GET.get('sort')
     if sort is None:
@@ -61,6 +60,19 @@ def movie_search(request):
     movies = movies.filter(rating__lte=rating_to)
     for genre in genres_lst:
         movies = movies.filter(genre__in=[genre])
+
+    session_sort = request.session.get('sort')
+    sort = request.GET.get('sort')
+    if sort is None:
+        sort = session_sort
+    if sort == 'rosnaco':
+        movies = movies.order_by('rating')
+    elif sort == 'malejaco':
+        movies = movies.order_by('-rating')
+    else:
+        movies = movies.order_by('-year')
+    if sort is not None:
+        request.session['sort'] = sort
 
     return render(request, 'movie_app/movies_search.html', {'genres': genres, 'movies': movies})
 

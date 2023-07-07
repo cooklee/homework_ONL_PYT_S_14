@@ -20,7 +20,7 @@ from movie_app import views
 
 urlpatterns = [
     path('movies/', views.movies_view, name='movie_list'),
-    path('movies_search', views.movie_search, name='movie_list'),
+    path('movies_search', views.movie_search, name='movie_search'),
     path('movie_create/', views.movie_create_view, name='movie_create'),
     path('movies_edit/<int:id>/', views.movie_edit_view, name='movie_edit'),
     path('persons/', views.persons_view, name='person_list'),
